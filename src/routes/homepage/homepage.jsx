@@ -19,6 +19,15 @@ const Homepage = () => {
           <img src="/chillguy.png" alt="" className='chillguy'/>
         </div>
       </div>
+
+      <div className="terms">
+        <img src="/logo.png" alt="" />
+        <div className="links">
+          <Link to="/">Terms of Service</Link>
+          <span>|</span>
+          <Link to="/">Privacy Policy</Link>
+        </div>
+      </div>
     </div>
   )
 }
