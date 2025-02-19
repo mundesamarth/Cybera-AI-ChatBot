@@ -9,3 +9,6 @@ we will be running express server in the index.js in the Backend folder, we will
 
 ### next we will install express server
 `npm i express` 
+
+### Installing Gemini: 
+`npm install @google/generative-ai`
