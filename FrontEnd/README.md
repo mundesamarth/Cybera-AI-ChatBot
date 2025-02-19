@@ -12,3 +12,6 @@ we will be running express server in the index.js in the Backend folder, we will
 
 ### Installing Gemini: 
 `npm install @google/generative-ai`
+
+### installing markdown for react
+`npm i -f react-markdown`
