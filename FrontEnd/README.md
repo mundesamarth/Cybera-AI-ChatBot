@@ -15,3 +15,6 @@ we will be running express server in the index.js in the Backend folder, we will
 
 ### installing markdown for react
 `npm i -f react-markdown`
+
+### installing moongoose 
+`npm i mongoose`
