@@ -1,30 +1,27 @@
 {
   "name": "cybera-ai",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "frontend": "cd frontend && npm run dev",
+    "backend": "cd backend && npm start",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
-  "dependencies": {
-    "@clerk/clerk-react": "^5.22.13",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.1.5"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mundesamarth/Cybera-AI-ChatBot.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mundesamarth/Cybera-AI-ChatBot/issues"
+  },
+  "homepage": "https://github.com/mundesamarth/Cybera-AI-ChatBot#readme",
   "devDependencies": {
-    "@eslint/js": "^9.19.0",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.19.0",
-    "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.18",
-    "globals": "^15.14.0",
-    "vite": "^6.1.0"
+    "concurrently": "^9.1.2"
   }
 }
