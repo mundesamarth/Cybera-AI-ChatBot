@@ -9,7 +9,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 const NewPrompt = ({ data }) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-
   const [img, setImg] = useState({
     isLoading: false,
     error: "",
@@ -18,31 +17,27 @@ const NewPrompt = ({ data }) => {
   });
 
   const chat = model.startChat({
-    history: [
-      {
-        role: "user",
-        parts: [{ text: "Hello" }],
-      },
-      {
-        role: "model",
-        parts: [{ text: "Great to meet you. What would you like to know?" }],
-      },
-    ],
-    generationConfig: {},
+    history: data?.history?.length
+      ? data.history.map(({ role, parts }) => ({
+          role,
+          parts: [{ text: parts[0].text }],
+        }))
+      : [{ role: "user", parts: [{ text: "Hello!" }] }], // Fallback to a default user message
   });
+  
 
   const endRef = useRef(null);
   const formRef = useRef(null);
 
   useEffect(() => {
     endRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [data, answer, question, img.dbData]);
+  }, [data, question, answer, img.dbData]);
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async () => {
-      const res = await fetch(
+    mutationFn:  () => {
+      return fetch(
         `${import.meta.env.VITE_API_URL}/api/chats/${data._id}`,
         {
           method: "PUT",
@@ -55,12 +50,9 @@ const NewPrompt = ({ data }) => {
             answer,
             img: img.dbData?.filePath || undefined,
           }),
-        }
-      );
-      return await res.json();
+        }).then((res)=>res.json());
     },
-    onSuccess: (id) => {
-      // Invalidate and refetch
+    onSuccess: () => {
       queryClient
         .invalidateQueries({ queryKey: ["chat", data._id] })
         .then(() => {
@@ -90,7 +82,6 @@ const NewPrompt = ({ data }) => {
       let accumulatedText = "";
       for await (const chunk of result.stream) {
         const chunkText = chunk.text();
-
         accumulatedText += chunkText;
         setAnswer(accumulatedText);
       }
