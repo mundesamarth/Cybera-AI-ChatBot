@@ -1,57 +1,70 @@
-import './dashboard.css'
-import {useAuth} from "@clerk/clerk-react"
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import "./dashboard.css";
+import { useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+const DashboardPage = () => {
+  const queryClient = useQueryClient();
 
-  const {userId} = useAuth()
-  const handleSubmit = async(e) => {
+  const navigate = useNavigate();
+
+  const mutation = useMutation({
+    mutationFn: async (text) => {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/chats`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text }),
+      });
+      return await res.json();
+    },
+    onSuccess: (id) => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["userChats"] });
+      navigate(`/dashboard/chats/${id}`);
+    },
+  });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const text = e.target.text.value;
-    if(!text) return;
+    if (!text) return;
 
-
-    await fetch("http://localhost:3000/api/chats",{
-      method: "POST",
-      headers:{
-        "Content-Type":"application/json",
-      },
-      body:JSON.stringify({userId,text}),
-    });
+    mutation.mutate(text);
   };
-
-
   return (
-    <div className='dashboard'>
+    <div className="dashboardPage">
       <div className="texts">
         <div className="logo">
-          <img src="/logo.png" alt="" />  {/*here comes the logo add later */}
-          <h1>CyberaAI</h1>
+          <img src="/logo.png" alt="" />
+          <h1>LAMA AI</h1>
         </div>
         <div className="options">
           <div className="option">
             <img src="/chat.png" alt="" />
-            <span>New Chat</span>
+            <span>Create a New Chat</span>
           </div>
           <div className="option">
             <img src="/image.png" alt="" />
-            <span>Analyse Image</span>
+            <span>Analyze Images</span>
           </div>
           <div className="option">
             <img src="/code.png" alt="" />
-            <span>code Helper</span>
+            <span>Help me with my Code</span>
           </div>
         </div>
       </div>
       <div className="formContainer">
-        <form action="" onSubmit={handleSubmit}>
-          <input type="text" name="text" placeholder='ASK ME ANYTHING' />
+        <form onSubmit={handleSubmit}>
+          <input type="text" name="text" placeholder="Ask me anything..." />
           <button>
             <img src="/arrow.png" alt="" />
           </button>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default DashboardPage;
