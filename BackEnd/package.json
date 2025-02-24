@@ -19,8 +19,5 @@
     "imagekit": "^6.0.0",
     "imagekitio-react": "^4.2.0",
     "mongoose": "^8.10.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.9"
   }
 }
