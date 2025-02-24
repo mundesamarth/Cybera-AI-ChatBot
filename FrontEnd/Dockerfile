@@ -5,7 +5,7 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Copy frontend package.json 
-COPY package*.json .
+COPY package*.json ./
 
 
 # install dependencies
