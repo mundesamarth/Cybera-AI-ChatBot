@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/mundesamarth/Cybera-AI-ChatBot#readme",
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9"
   },
   "dependencies": {
     "imagekit": "^6.0.0"
