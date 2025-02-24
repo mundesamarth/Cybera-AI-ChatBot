@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json first (for better caching)
 COPY package*.json ./
-COPY .env ./
+
 # Install dependencies
 RUN npm install -f
 RUN npm install -g nodemon
