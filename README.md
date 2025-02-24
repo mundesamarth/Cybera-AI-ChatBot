@@ -64,7 +64,7 @@ npm install concurrently --save-dev
 ```
 ### 3. Run the application
 ```bash
-npm run dev
+docker compose up
 ```
 ## Usage
 Once the application is running:
